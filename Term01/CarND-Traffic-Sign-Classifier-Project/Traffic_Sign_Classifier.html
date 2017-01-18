@@ -12594,8 +12594,7 @@ Model saved
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For pre-processing Min-Max normalization. Where I normalized test and train data.</p>
-
+<h3 id="For-pre-processing-Min-Max-normalization.-Where-I-normalized-test-and-train-data.-I-normalized-the-data-in-the-image-by-coverting-all-0---255-values-to-0---1,-by-doing-this-we-can-achieve-close-to-0-mean-and-equal-variance.">For pre-processing Min-Max normalization. Where I normalized test and train data. I normalized the data in the image by coverting all 0 - 255 values to 0 - 1, by doing this we can achieve close to 0 mean and equal variance.<a class="anchor-link" href="#For-pre-processing-Min-Max-normalization.-Where-I-normalized-test-and-train-data.-I-normalized-the-data-in-the-image-by-coverting-all-0---255-values-to-0---1,-by-doing-this-we-can-achieve-close-to-0-mean-and-equal-variance.">&#182;</a></h3><h3 id="Also,-I-didn't-convert-image-to-greyscale-inorder-to-retain-all-the-properties-of-3-channels-so-that-I-can-extract-more-information-when-doing-convolution.">Also, I didn't convert image to greyscale inorder to retain all the properties of 3 channels so that I can extract more information when doing convolution.<a class="anchor-link" href="#Also,-I-didn't-convert-image-to-greyscale-inorder-to-retain-all-the-properties-of-3-channels-so-that-I-can-extract-more-information-when-doing-convolution.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12624,9 +12623,7 @@ Model saved
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I used test and train split function to split training data as train and validate data. 
-I am using 20% of train data for validation. This is necessary as we need to validate the training so that we can measure the prediction accuracy after training.</p>
-
+<h3 id="I-used-test-and-train-split-function-to-split-training-data-as-train-and-validate-data.-I-am-using-20%-of-train-data-for-validation.-This-is-necessary-as-we-need-to-validate-the-training-so-that-we-can-measure-the-prediction-accuracy-after-training.">I used test and train split function to split training data as train and validate data. I am using 20% of train data for validation. This is necessary as we need to validate the training so that we can measure the prediction accuracy after training.<a class="anchor-link" href="#I-used-test-and-train-split-function-to-split-training-data-as-train-and-validate-data.-I-am-using-20%-of-train-data-for-validation.-This-is-necessary-as-we-need-to-validate-the-training-so-that-we-can-measure-the-prediction-accuracy-after-training.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12655,20 +12652,19 @@ I am using 20% of train data for validation. This is necessary as we need to val
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I reused the LeNet lab, which is LeNet-5 neural network architecture.</p>
-<p>Five layers looks as below,</p>
-<p>Layer 1: Convolutional. The output shape is 28x28x6.
-Activation. I am using RELU activation layer.
-Pooling. I am using Max Pooling which outputs the shape 14x14x6.
-Layer 2: Convolutional. The output shape is 10x10x16.
-Activation. I am using RELU activation layer.
-Pooling. I am using Max Pooling which outputs the shape 5x5x16.
-Flatten. Flatten the output shape of the final pooling layer such that it's 1D instead of 3D. I do is by using tf.contrib.layers.flatten.
-Layer 3: Is a Fully Connected layer with 120 outputs.
-Activation. I am using RELU activation layer.
-Layer 4: Is a Fully Connected layer with 84 outputs.
-Activation. I am using RELU activation layer.
-Layer 5: Fully Connected (Logits) with 43 outputs.</p>
+<h3 id="I-reused-the-LeNet-lab,-which-is-LeNet-5-neural-network-architecture.">I reused the LeNet lab, which is LeNet-5 neural network architecture.<a class="anchor-link" href="#I-reused-the-LeNet-lab,-which-is-LeNet-5-neural-network-architecture.">&#182;</a></h3><h3 id="Five-layers-looks-as-below,">Five layers looks as below,<a class="anchor-link" href="#Five-layers-looks-as-below,">&#182;</a></h3><p>Layer 1: Convolutional. The output shape is 28x28x6.</p>
+<p>Activation. I am using RELU activation layer.</p>
+<p>Pooling. I am using Max Pooling which outputs the shape 14x14x6.</p>
+<p>Layer 2: Convolutional. The output shape is 10x10x16.</p>
+<p>Activation. I am using RELU activation layer.</p>
+<p>Pooling. I am using Max Pooling which outputs the shape 5x5x16.</p>
+<p>Flatten. Flatten the output shape of the final pooling layer such that it's 1D instead of 3D. I do is by using 
+tf.contrib.layers.flatten.</p>
+<p>Layer 3: Is a Fully Connected layer with 120 outputs.</p>
+<p>Activation. I am using RELU activation layer.</p>
+<p>Layer 4: Is a Fully Connected layer with 84 outputs.</p>
+<p>Activation. I am using RELU activation layer.</p>
+<p>Layer 5: Fully Connected (Logits) with 43 outputs.</p>
 
 </div>
 </div>
@@ -12698,8 +12694,7 @@ Layer 5: Fully Connected (Logits) with 43 outputs.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The EPOCH and BATCH_SIZE values affect the training speed and model accuracy. I tried various combinations of epochs, batch size and learning rate. Finally I got an accuracy of 98% with 40 Epochs, Batch Size of 150 and learning rate of 0.01. I didn't modify any other hyperparameters. Even though I tried dropout of 0.5 it didn't yield me  good results.</p>
-
+<h3 id="The-EPOCH-and-BATCH_SIZE-values-affect-the-training-speed-and-model-accuracy.-I-tried-various-combinations-of-epochs,-batch-size-and-learning-rate.-Finally-I-got-an-accuracy-of-98%-with-40-Epochs,-Batch-Size-of-150-and-learning-rate-of-0.01.-I-didn't-modify-any-other-hyperparameters.-Even-though-I-tried-dropout-of-0.5-it-didn't-yield-me--good-results.">The EPOCH and BATCH_SIZE values affect the training speed and model accuracy. I tried various combinations of epochs, batch size and learning rate. Finally I got an accuracy of 98% with 40 Epochs, Batch Size of 150 and learning rate of 0.01. I didn't modify any other hyperparameters. Even though I tried dropout of 0.5 it didn't yield me  good results.<a class="anchor-link" href="#The-EPOCH-and-BATCH_SIZE-values-affect-the-training-speed-and-model-accuracy.-I-tried-various-combinations-of-epochs,-batch-size-and-learning-rate.-Finally-I-got-an-accuracy-of-98%-with-40-Epochs,-Batch-Size-of-150-and-learning-rate-of-0.01.-I-didn't-modify-any-other-hyperparameters.-Even-though-I-tried-dropout-of-0.5-it-didn't-yield-me--good-results.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12720,6 +12715,15 @@ Layer 5: Fully Connected (Logits) with 43 outputs.</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="I-followed-LeNet-architecture-approach-discussed-in-the-convolutional-neural-networks.-I-followed-this-approach-as-it-looked-more-efficient-method-of-training.-I-spent-lot-of-time-trying-to-improve-training-accuracy.-Some-preprocessing-like-normalizing-the-input,-then-I-used-LeNet-involving-convolution-network,-RELU,-MAX-Pooling.-I-spent-lot-of-time-tuning-the-hyperparamters-like-dropout,-standard-deviation-etc..,-Also-I-tried-different-combinations-of-Epochs,-Learning-rate-and-Batch-size.-After-getting-training-accuracy-of-98%-I-think-my-approach-is-good-enough-for-this-project.">I followed LeNet architecture approach discussed in the convolutional neural networks. I followed this approach as it looked more efficient method of training. I spent lot of time trying to improve training accuracy. Some preprocessing like normalizing the input, then I used LeNet involving convolution network, RELU, MAX Pooling. I spent lot of time tuning the hyperparamters like dropout, standard deviation etc.., Also I tried different combinations of Epochs, Learning rate and Batch size. After getting training accuracy of 98% I think my approach is good enough for this project.<a class="anchor-link" href="#I-followed-LeNet-architecture-approach-discussed-in-the-convolutional-neural-networks.-I-followed-this-approach-as-it-looked-more-efficient-method-of-training.-I-spent-lot-of-time-trying-to-improve-training-accuracy.-Some-preprocessing-like-normalizing-the-input,-then-I-used-LeNet-involving-convolution-network,-RELU,-MAX-Pooling.-I-spent-lot-of-time-tuning-the-hyperparamters-like-dropout,-standard-deviation-etc..,-Also-I-tried-different-combinations-of-Epochs,-Learning-rate-and-Batch-size.-After-getting-training-accuracy-of-98%-I-think-my-approach-is-good-enough-for-this-project.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12756,16 +12760,6 @@ Test Accuracy = 0.980
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I followed LeNet architecture approach discussed in the convolutional neural networks. I followed this approach as it looked more efficient method of training. I spent lot of time trying to improve training accuracy. Some preprocessing like normalizing the input, then I used LeNet involving convolution network, RELU, MAX Pooling. I spent lot of time tuning the hyperparamters like dropout, standard deviation etc.., Also I tried different combinations of Epochs, Learning rate and Batch size. After getting training accuracy of 98% I think my approach is good enough for this project.</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -12861,7 +12855,7 @@ Test Accuracy = 0.980
 </tr>
 </tbody>
 </table>
-
+<h3 id="Among-these,-first-image-is-not-in-any-of-the-sign-category-and-few-images-are-not-in-the-dataset.-Hence-it-makes-it-difficult-for-the-model-to-classify.-But-I-am-expecting-close-guess-for-those!">Among these, first image is not in any of the sign category and few images are not in the dataset. Hence it makes it difficult for the model to classify. But I am expecting close guess for those!<a class="anchor-link" href="#Among-these,-first-image-is-not-in-any-of-the-sign-category-and-few-images-are-not-in-the-dataset.-Hence-it-makes-it-difficult-for-the-model-to-classify.-But-I-am-expecting-close-guess-for-those!">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13371,6 +13365,15 @@ jMXuFAO49dbPk0qnRybQkr379nH3XXez8rILETpC4lDIV9i5ay+aIhOnLsOr/oYtm00uueQClGOw
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="As-seen-in-the-result-below,-we-can-see-that-images-3,-4,-5,-6,-7,-8-are-predicted-correctly.-Label-for-first-image-is-not-there-in-the-csv-file-provided.-2-and-9-are-not-predicted-properly.-So-our-model-has-an-accuracy-of-75-percent-[(6/8)*100].-This-is-expected-as-few-images-are-not-in-our-dataset.-However,-my-accuracy-is-much-lesser-than-test-accuracy-which-is-0.98.-Model-can-be-further-improved-by-adding-more-layers-in-LeNet-or-using-better-architecture-like-Keras,-or-simply-by-removing-explicit-learning-rate-and-asking-Adam-Optimizer-to-choose-one!!!">As seen in the result below, we can see that images 3, 4, 5, 6, 7, 8 are predicted correctly. Label for first image is not there in the csv file provided. 2 and 9 are not predicted properly. So our model has an accuracy of 75 percent [(6/8)*100]. This is expected as few images are not in our dataset. However, my accuracy is much lesser than test accuracy which is 0.98. Model can be further improved by adding more layers in LeNet or using better architecture like Keras, or simply by removing explicit learning rate and asking Adam Optimizer to choose one!!!<a class="anchor-link" href="#As-seen-in-the-result-below,-we-can-see-that-images-3,-4,-5,-6,-7,-8-are-predicted-correctly.-Label-for-first-image-is-not-there-in-the-csv-file-provided.-2-and-9-are-not-predicted-properly.-So-our-model-has-an-accuracy-of-75-percent-[(6/8)*100].-This-is-expected-as-few-images-are-not-in-our-dataset.-However,-my-accuracy-is-much-lesser-than-test-accuracy-which-is-0.98.-Model-can-be-further-improved-by-adding-more-layers-in-LeNet-or-using-better-architecture-like-Keras,-or-simply-by-removing-explicit-learning-rate-and-asking-Adam-Optimizer-to-choose-one!!!">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
@@ -13422,16 +13425,6 @@ Expected Labels:  [&#39;?&#39;, 29, 28, 33, 5, 14, 18, 17, 34]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As seen in the result above, we can see that images 3, 4, 5, 6, 7, 8 are predicted correctly. Label for first image is not there in the csv file provided. 2 and 9 are predicted properly. So our model has an accuracy of 75 percent [(6/8)*100].</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Question-8">Question 8<a class="anchor-link" href="#Question-8">&#182;</a></h3><p><em>Use the model's softmax probabilities to visualize the <strong>certainty</strong> of its predictions, <a href="https://www.tensorflow.org/versions/r0.12/api_docs/python/nn.html#top_k"><code>tf.nn.top_k</code></a> could prove helpful here. Which predictions is the model certain of? Uncertain? If the model was incorrect in its initial prediction, does the correct prediction appear in the top k? (k should be 5 at most)</em></p>
 <p><code>tf.nn.top_k</code> will return the values and indices (class ids) of the top k predictions. So if k=3, for each sign, it'll return the 3 largest probabilities (out of a possible 43) and the correspoding class ids.</p>
 <p>Take this numpy array as an example:</p>
@@ -13470,6 +13463,15 @@ a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Of-the-5-visualized-predictions,-the-model-incorrectly-predicted-first-and-second.-The-first-prediction-is-for-a-picture-of-a-horse-crossing-the-road.-As-there-is-no-&quot;horse-crossing&quot;-sign-in-the-German-traffic-Sign-dataset,-it-is-expected-that-the-model-will-have-trouble-identifying-it,-however,-I-would-consider-a-correct-prediction-to-be-Wild-Animal-crossing,-or-class-number-31.">Of the 5 visualized predictions, the model incorrectly predicted first and second. The first prediction is for a picture of a horse crossing the road. As there is no "horse crossing" sign in the German traffic Sign dataset, it is expected that the model will have trouble identifying it, however, I would consider a correct prediction to be Wild Animal crossing, or class number 31.<a class="anchor-link" href="#Of-the-5-visualized-predictions,-the-model-incorrectly-predicted-first-and-second.-The-first-prediction-is-for-a-picture-of-a-horse-crossing-the-road.-As-there-is-no-&quot;horse-crossing&quot;-sign-in-the-German-traffic-Sign-dataset,-it-is-expected-that-the-model-will-have-trouble-identifying-it,-however,-I-would-consider-a-correct-prediction-to-be-Wild-Animal-crossing,-or-class-number-31.">&#182;</a></h3><h3 id="According-to-the-above-visualization,-in-all-five-cases,-neural-network-model-makes-its-first-choice-with-the-highest-probability-(almost-100-percent)-and-other-four-choices-are-almost-negligible.-For-me,-it-looks-like-a-little-bit-of-warning.-Hence,-further-investigation-should-be-made-to-understand-this-behaviour.">According to the above visualization, in all five cases, neural network model makes its first choice with the highest probability (almost 100 percent) and other four choices are almost negligible. For me, it looks like a little bit of warning. Hence, further investigation should be made to understand this behaviour.<a class="anchor-link" href="#According-to-the-above-visualization,-in-all-five-cases,-neural-network-model-makes-its-first-choice-with-the-highest-probability-(almost-100-percent)-and-other-four-choices-are-almost-negligible.-For-me,-it-looks-like-a-little-bit-of-warning.-Hence,-further-investigation-should-be-made-to-understand-this-behaviour.">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14630,17 +14632,6 @@ AABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Of the 5 visualized predictions, the model incorrectly predicted first and second. The first prediction is for a picture of a horse crossing the road. As there is no "horse crossing" sign in the German traffic Sign dataset, it is expected that the model will have trouble identifying it, however, I would consider a correct prediction to be Wild Animal crossing, or class number 31.</p>
-<p>According to the above visualization, in all five cases, neural network model makes its first choice with the highest probability (almost 100 percent) and other four choices are almost negligible. For me, it looks like a little bit of warning. Hence, further investigation should be made to understand this behaviour.</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
