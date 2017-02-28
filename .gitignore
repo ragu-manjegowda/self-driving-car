@@ -1,5 +1,6 @@
 __pycache__
 bvlc-alexnet.npy
+.DS_Store
 .vscode
 data
 *.h5
