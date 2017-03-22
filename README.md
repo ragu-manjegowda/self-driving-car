@@ -79,3 +79,15 @@ Review how to apply image classification techniques to vehicle tracking, along w
 
 >**_9. Project: Vehicle Tracking_**  
 **Track vehicles in camera images using image classifiers such as SVMs, decision trees, HOG, and DNNs. Apply filters to fuse position data.**
+
+
+## Term 2: Sensor Fusion, Localization, and Control
+
+
+### Sensor Fusion
+
+
+### Localization
+
+
+### Control
