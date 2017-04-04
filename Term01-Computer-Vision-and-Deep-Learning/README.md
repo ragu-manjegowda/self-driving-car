@@ -1,9 +1,3 @@
-# [In-Depth on Udacity’s Self-Driving Car Curriculum](https://www.udacity.com/drive)
-
-<p align="center"><a href="http://www.youtube.com/watch?feature=player_embedded&v=f9z-eKD2xjk
-" target="_blank"><img src="http://img.youtube.com/vi/f9z-eKD2xjk/0.jpg" 
-alt="Click to view Introduction Video" width="240" height="180" border="10" /></a></p>
-
 ## Term 1: Computer Vision and Deep Learning
 
 
