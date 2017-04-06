@@ -18,7 +18,7 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## Basic Build Instructions
 
-1. Clone this repo.
+1. Clone this repo and cd into the repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make` 
    * On windows, you may need to run: `cmake .. -G "Unix Makefiles" && make`
