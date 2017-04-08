@@ -31,6 +31,13 @@ FusionEKF::FusionEKF() {
         0, 0.0009, 0,
         0, 0, 0.09;
 
+  /*R_radar_ << 0.014412589090776581, 0,                      0,
+              0,                    1.3610836622321855e-06, 0,
+              0,                    0,                      0.011073356944289297;
+  
+  R_laser_ << 0.0068374897772981421, 0,
+              0,                     0.0054887300686829819;*/
+
   /**
   TODO:
     * Finish initializing the FusionEKF.
@@ -86,16 +93,16 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     // first measurement
     cout << "EKF: " << endl;
     
-    previous_timestamp_ = measurement_pack.timestamp;
+    previous_timestamp_ = measurement_pack.timestamp_;
     ekf_.x_ = VectorXd(4);
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       /**
       Convert radar from polar to cartesian coordinates and initialize state.
       */
-      float ro = measurement_pack.raw_measurements_[0];
+      float rho = measurement_pack.raw_measurements_[0];
       float phi = measurement_pack.raw_measurements_[1];
-      float ro_dot = measurement_pack.raw_measurements_[2];
+      float rho_dot = measurement_pack.raw_measurements_[2];
 
       ekf_.x_ << rho * cos(phi), rho * sin(phi), rho_dot * cos(phi), rho_dot * sin(phi);
       
@@ -129,8 +136,8 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    */
 
   //compute the time elapsed between the current and previous measurements
-  float dt = (measurement_pack.timestamp - previous_timestamp_) / 1000000.0;	//dt - expressed in seconds
-  previous_timestamp_ = measurement_pack.timestamp;
+  float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;	//dt - expressed in seconds
+  previous_timestamp_ = measurement_pack.timestamp_;
 
   float dt_2 = dt * dt;
   float dt_3 = dt_2 * dt;
