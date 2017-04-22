@@ -52,6 +52,27 @@ UKF::UKF() {
 
   Hint: one or more values initialized above might be wildly off...
   */
+  is_initialized_ = false;
+
+  n_x_;
+
+  n_aug_;
+
+  Xsig_pred_ = MatrixXd(n_x_, 2 * n_aug_ + 1);
+
+  std_a_;
+
+  std_yawdd_;
+
+  std_laspx_;
+
+  weights_;
+
+  lambda_;
+
+  NIS_radar_;
+
+  NIS_laser_;
 }
 
 UKF::~UKF() {}
