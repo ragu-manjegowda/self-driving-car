@@ -424,20 +424,23 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
     double px = state_vec(0);
     double py = state_vec(1);
     double v = state_vec(2);
-    double yaw = state_vec(3);
-    double yaw_d = state_vec(4);
+    double v1 = cos(yaw)*v;
+    double v2 = sin(yaw)*v;
     
     rho = sqrt(px*px+py*py);
     phi = atan2(py,px);
-    rho_d = (px*cos(yaw)*v+py*sin(yaw)*v) / rho;
+    rho_d = (px * v1 + py * v2 ) / rho;
     
     Zsig.col(i) << rho,
-                   phi,
-                   rho_d;
+                  phi,
+                  rho_d;
     
     //calculate mean predicted measurement
-    z_pred += weights_(i) * Zsig.col(i);
+    //z_pred += weights_(i) * Zsig.col(i);
   }
+
+  //calculate mean predicted measurement
+  z_pred  = Zsig * weights_;
   
   //calculate measurement covariance matrix S
   for (int i = 0; i < 2 * n_aug_ + 1; i++) {
@@ -491,13 +494,13 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
     Tc += weights_(i) * x_diff * z_diff.transpose();
     
     //calculate NIS
-    NIS_radar_ = z_diff.transpose() * S.inverse() * z_diff;
+    NIS_radar_ = z.transpose() * S.inverse() * z;
   }
   
   //calculate Kalman gain K;
   MatrixXd K = Tc * S.inverse();
   
   //update state mean and covariance matrix
-  x_ += K*(z-z_pred);
+  x_ += K*(z_diff);
   P_ -= K*S*K.transpose();
 }
