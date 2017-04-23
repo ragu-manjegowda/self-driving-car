@@ -107,7 +107,19 @@ public:
    * Updates the state and the state covariance matrix using a radar measurement
    * @param meas_package The measurement at k+1
    */
-  void UpdateRadar(MeasurementPackage meas_package);
+  void UpdateRadar(MeasurementPackage meas_package); 
+
+  /**
+   *  Angle normalization to [-Pi, Pi]
+   */
+  void NormAng(double *ang); 
+
+  /**
+   * Updates the state and the state covariance matrix of the UKF
+   * 
+   */
+  void UpdateUKF(MeasurementPackage meas_package, MatrixXd Zsig, int n_z); 
+  
 };
 
 #endif /* UKF_H */
