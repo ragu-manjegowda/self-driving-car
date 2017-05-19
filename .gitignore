@@ -7,3 +7,11 @@ data
 *.swp
 *.p
 *.zip
+reviewer
+submission_instructions.*
+build
+solution
+solution_data
+src/particle_filter_sol.cpp
+src/solutions
+particle_filter.cpp
