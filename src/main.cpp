@@ -116,8 +116,8 @@ int main() {
           //Using the kinematic model
           double delayed_px = px + v * cos(psi) * delay/1000;
           double delayed_py = py + v * sin(psi) * delay/1000;
-          double delayed_psi = psi + (v * tan(-delta) / Lf) * delay/1000 + ( (a * tan(-delta) / (2*Lf)) * pow(delay/1000,2));
-          double delayed_v = v + a * delay/1000;
+          double delayed_psi = psi + (v * tan(-delta) / Lf) * delay/1000 + ( (throttle * tan(-delta) / (2*Lf)) * pow(delay/1000,2));
+          double delayed_v = v + throttle * delay/1000;
         
 
           /*
@@ -133,8 +133,8 @@ int main() {
               double delta_px = points_px[i] - delayed_px;
               double delta_py = points_py[i] - delayed_py;
 
-              points_px[i] = delta_px * cos(-delayed_psi) - dy * sin(-delayed_psi);
-              points_py[i] = delta_py * cos(-delayed_psi) + dx * sin(-delayed_psi);
+              points_px[i] = delta_px * cos(-delayed_psi) - delta_py * sin(-delayed_psi);
+              points_py[i] = delta_py * cos(-delayed_psi) + delta_px * sin(-delayed_psi);
             }
 
           /*
@@ -144,32 +144,25 @@ int main() {
 
           auto coeffs = polyfit(points_px, points_py, 2);
 
-          // The cross track error is calculated by evaluating at polynomial at x, f(x)
-          // and subtracting y.
-          double cte = polyeval(coeffs, x) - y;
+          // The cross track error is calculated by evaluating at polynomial at x = 0
+          double cte = coeffs[0];
 
           // Due to the sign starting at 0, the orientation error is -f'(x).
-          // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-          double epsi = psi - atan(coeffs[1]);
+          double epsi = - atan(coeffs[1]);
 
           Eigen::VectorXd state(6);
-          state << x, y, psi, v, cte, epsi;
+          state << 0, 0, 0, delayed_v, cte, epsi;
 
-          std::vector<double> x_vals = {state[0]};
-          std::vector<double> y_vals = {state[1]};
-          std::vector<double> psi_vals = {state[2]};
-          std::vector<double> v_vals = {state[3]};
-          std::vector<double> cte_vals = {state[4]};
-          std::vector<double> epsi_vals = {state[5]};
-          std::vector<double> delta_vals = {};
-          std::vector<double> a_vals = {};
+          /*
+          * Use Model Predictive Control
+          */
 
           auto vars = mpc.Solve(state, coeffs);
 
           double steer_value = vars[6];
           double throttle_value = vars[7];
 
-          std::cout<<steer_value << endl; 
+          std::cout<< steer_value << " " << throttle_value << endl; 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
           // Otherwise the values will be in between [-deg2rad(25), deg2rad(25] instead of [-1, 1].
