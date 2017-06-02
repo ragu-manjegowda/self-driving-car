@@ -73,24 +73,30 @@ int main() {
 
   h.onMessage([&mpc](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
+    
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
     string sdata = string(data).substr(0, length);
     cout << sdata << endl;
+    
     if (sdata.size() > 2 && sdata[0] == '4' && sdata[1] == '2') {
       string s = hasData(sdata);
       if (s != "") {
         auto j = json::parse(s);
         string event = j[0].get<string>();
         if (event == "telemetry") {
+         
           // j[1] is the data JSON object
           vector<double> ptsx = j[1]["ptsx"];
           vector<double> ptsy = j[1]["ptsy"];
           double px = j[1]["x"];
           double py = j[1]["y"];
-          double psi = j[1]["psi"];
-          double v = j[1]["speed"];
+          double psi = j[1]["psi"]; //in radians
+          double v_mph = j[1]["speed"]; //in miles per hour
+          double v = v_mph * 0.44704; //in meter per second
+          double delta = j[1]["steering_angle"]; 
+          double throttle = j[1]["throttle"];
 
           /*
           * TODO: Calculate steeering angle and throttle using MPC.
@@ -98,6 +104,45 @@ int main() {
           * Both are in between [-1, 1].
           *
           */
+
+          
+          /*
+          * Convert to delayed state as we have 100ms latency
+          */
+
+          double delay = 100; //latency specified in the project requirement.
+          double Lf = 2.67; //From quiz
+
+          //Using the kinematic model
+          double delayed_px = px + v * cos(psi) * delay/1000;
+          double delayed_py = py + v * sin(psi) * delay/1000;
+          double delayed_psi = psi + (v * tan(-delta) / Lf) * delay/1000 + ( (a * tan(-delta) / (2*Lf)) * pow(delay/1000,2));
+          double delayed_v = v + a * delay/1000;
+        
+
+          /*
+          * Transform points from map co-ordinates to vehicle co-ordinates
+          */
+
+          int num_points = ptsx.size();
+          Eigen::VectorXd points_px(num_points);
+          Eigen::VectorXd points_py(num_points);
+
+          for(int i = 0; i < num_points; i++) {
+
+              double delta_px = points_px[i] - delayed_px;
+              double delta_py = points_py[i] - delayed_py;
+
+              points_px[i] = delta_px * cos(-delayed_psi) - dy * sin(-delayed_psi);
+              points_py[i] = delta_py * cos(-delayed_psi) + dx * sin(-delayed_psi);
+            }
+
+          /*
+          * The polynomial is fitted to a line that is not straight so a polynomial with
+          * order 2 is chosen.
+          */
+
+          auto coeffs = polyfit(points_px, points_py, 2);
 
           // The cross track error is calculated by evaluating at polynomial at x, f(x)
           // and subtracting y.
