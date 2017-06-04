@@ -4,9 +4,13 @@ using CppAD::AD;
 
 // TODO: Set the timestep length and duration
 
-// We set the number of timesteps to 10
+// Set the number of timesteps to 10
 // and the timestep evaluation frequency or evaluation
 // period to 0.15.
+
+// Setting higher N was not helping my model since it is too far in future and track changed by then, 
+// I tried 0.01, 0.02, 0.05 and 0.1 fot dt, they all failed as the period was not big enough for car to make turn
+// in this model.
 size_t N = 10;
 double dt = 0.15;
 
