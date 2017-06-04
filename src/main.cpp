@@ -118,7 +118,6 @@ int main() {
           double delayed_py = py + v * sin(psi) * delay/1000;
           double delayed_psi = psi + (v * tan(-delta) / Lf) * delay/1000 + ( (throttle * tan(-delta) / (2*Lf)) * pow(delay/1000,2));
           double delayed_v = v + throttle * delay/1000;
-        
 
           /*
           * Transform points from map co-ordinates to vehicle co-ordinates
@@ -130,8 +129,8 @@ int main() {
 
           for(int i = 0; i < num_points; i++) {
 
-              double delta_px = points_px[i] - delayed_px;
-              double delta_py = points_py[i] - delayed_py;
+              double delta_px = ptsx[i] - delayed_px;
+              double delta_py = ptsy[i] - delayed_py;
 
               points_px[i] = delta_px * cos(-delayed_psi) - delta_py * sin(-delayed_psi);
               points_py[i] = delta_py * cos(-delayed_psi) + delta_px * sin(-delayed_psi);
@@ -139,19 +138,19 @@ int main() {
 
           /*
           * The polynomial is fitted to a line that is not straight so a polynomial with
-          * order 2 is chosen.
+          * order 3 is chosen.
           */
 
-          auto coeffs = polyfit(points_px, points_py, 2);
+          auto coeffs = polyfit(points_px, points_py, 3);
 
           // The cross track error is calculated by evaluating at polynomial at x = 0
-          double cte = coeffs[0];
+          double cte = polyeval(coeffs, 0 );
 
           // Due to the sign starting at 0, the orientation error is -f'(x).
-          double epsi = - atan(coeffs[1]);
+          double epsi = -atan(coeffs[1]); //other terms are zero since px is zero
 
           Eigen::VectorXd state(6);
-          state << 0, 0, 0, delayed_v, cte, epsi;
+          state << 0, 0, 0, v, cte, epsi;
 
           /*
           * Use Model Predictive Control
@@ -159,10 +158,9 @@ int main() {
 
           auto vars = mpc.Solve(state, coeffs);
 
-          double steer_value = vars[6];
-          double throttle_value = vars[7];
+          double steer_value = -vars[0] / deg2rad(25);
+          double throttle_value = vars[1];
 
-          std::cout<< steer_value << " " << throttle_value << endl; 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
           // Otherwise the values will be in between [-deg2rad(25), deg2rad(25] instead of [-1, 1].
@@ -176,8 +174,23 @@ int main() {
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Green line
 
+          auto N = (vars.size()-2)/2;
+
+          double temp_x;
+          double temp_y;
+          
+          for (int i = 3; i < N+2; i++) 
+          {
+            temp_x = vars[i];
+            temp_y = vars[i+N];
+            mpc_x_vals.push_back(temp_x);
+            mpc_y_vals.push_back(temp_y);
+          }
+
           msgJson["mpc_x"] = mpc_x_vals;
           msgJson["mpc_y"] = mpc_y_vals;
+
+          
 
           //Display the waypoints/reference line
           vector<double> next_x_vals;
@@ -185,13 +198,18 @@ int main() {
 
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Yellow line
+          for (int i = 0; i < points_px.size(); i++) 
+          {
+            next_x_vals.push_back(points_px[i]);
+            next_y_vals.push_back(points_py[i]);
+          }
 
           msgJson["next_x"] = next_x_vals;
           msgJson["next_y"] = next_y_vals;
 
 
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
-          std::cout << msg << std::endl;
+          //std::cout << msg << std::endl;
           // Latency
           // The purpose is to mimic real driving conditions where
           // the car does actuate the commands instantly.
