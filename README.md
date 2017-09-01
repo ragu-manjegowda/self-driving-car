@@ -148,3 +148,23 @@ Implement a more sophisticated control algorithm for stabilizing the vehicle in 
 
 ## Term 3: Path Planning, Elective, and Systems
 
+
+### Path Planning
+
+<p align="center"><a target="_blank"><img src="https://lh3.googleusercontent.com/EMsecmVxZv_SQZQ7_uSwdjqRjEGICuXanKyAklqzpW8eQKd0rtHNyp8n1GLBhPOPJbF2VA=s152" 
+width="300" height="200" border="10" /></a></p>
+
+> **1. Search:**  
+This lesson discuss about discrete path planning and algorithms for solving the path planning problem.
+
+> **2. Prediction:**  
+Use data from sensor fusion to generate predictions about the likely behavior of the moving objects.
+
+> **3. Behavior Planning:**  
+Hight level behavior planning in a self driving car.
+
+> **4. Trajectory Generation:**  
+Use C++ and Eigen linear algebra library to build candidate trajectories for the vehicle to follow.
+
+> **_5. Project: Path Planning:_**  
+**Drive a car down a highway with other cars using own path planner.**
