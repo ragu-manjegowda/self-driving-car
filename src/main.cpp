@@ -184,7 +184,7 @@ bool safeLaneChange(int lane, datatype sensor_fusion, double car_s, int prev_siz
       check_car_s += (double)prev_size*0.02*check_speed;
 
       // check if the car is within 30 meters from our car
-      if( (car_s - check_car_s) < 5 && ((check_car_s - car_s) < 30))
+      if( (car_s - check_car_s) < 10 && ((check_car_s - car_s) < 30))
         return false;
     }
   }
@@ -346,7 +346,7 @@ int main() {
             {
               ref_vel -= 0.224;
             }
-            else if(ref_vel < 49.9) //less then speed limit of 50 mph
+            else if(ref_vel < 49.7) //less then speed limit of 50 mph
             {
               ref_vel += 0.224;
             }
