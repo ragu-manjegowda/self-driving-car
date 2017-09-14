@@ -33,7 +33,7 @@ def load_vgg(sess, vgg_path):
     vgg_layer4_out_tensor_name = 'layer4_out:0'
     vgg_layer7_out_tensor_name = 'layer7_out:0'
 
-    tf.saved_model.loader.load(sess, vgg_tag, vgg_path)
+    tf.saved_model.loader.load(sess, [vgg_tag], vgg_path)
     graph = tf.get_default_graph()
     w1 = graph.get_tensor_by_name(vgg_input_tensor_name)
     keep = graph.get_tensor_by_name(vgg_keep_prob_tensor_name)
@@ -116,7 +116,7 @@ def optimize(nn_last_layer, correct_label, learning_rate, num_classes):
     logits = tf.reshape(nn_last_layer, (-1, num_classes))
     correct_label = tf.reshape(correct_label, (-1, num_classes))
     cross_entropy_loss = tf.reduce_mean(
-            tf.nn.softmax_cross_entropy_with_logits(logits, correct_label))
+            tf.nn.softmax_cross_entropy_with_logits(logits= logits, labels = correct_label))
     optimizer = tf.train.AdamOptimizer(
             learning_rate).minimize(cross_entropy_loss)
     return logits, optimizer, cross_entropy_loss
@@ -145,9 +145,10 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
             _, loss = sess.run([train_op, cross_entropy_loss],
             feed_dict={input_image: images, correct_label: labels, keep_prob:0.75, learning_rate:0.0001})
 
-            if steps % 10 == 0:
-                print("Epoch {}/{}...".format(epoch_i+1, epochs),
-                      "Training Loss: {:.4f}...".format(loss))
+            #if steps % 10 == 0:
+            print("Epoch {}/{}...".format(epoch_i+1, epochs),
+                  "Training Loss: {:.4f}...".format(loss))
+
 tests.test_train_nn(train_nn)
 
 
@@ -157,6 +158,8 @@ def run():
     data_dir = './data'
     runs_dir = './runs'
     tests.test_for_kitti_dataset(data_dir)
+    epochs = 15
+    batch_size = 8
 
     # Download pretrained vgg model
     helper.maybe_download_pretrained_vgg(data_dir)
