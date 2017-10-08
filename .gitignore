@@ -13,3 +13,6 @@ solution
 solution_data
 src/particle_filter_sol.cpp
 src/solutions
+*.py[cod]
+devel
+profile.tmp
